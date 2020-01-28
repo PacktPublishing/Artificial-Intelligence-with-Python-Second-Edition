@@ -1,3 +1,6 @@
+# to install python_speech_features use:
+# pip install python_speech_features
+
 import os
 import argparse 
 import warnings
@@ -6,7 +9,7 @@ import numpy as np
 from scipy.io import wavfile 
 
 from hmmlearn import hmm
-from features import mfcc
+from python_speech_features import mfcc
 
 # Define a function to parse the input arguments
 def build_arg_parser():
