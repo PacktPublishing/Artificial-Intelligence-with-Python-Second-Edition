@@ -4,7 +4,7 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import AdaBoostRegressor
 from sklearn import datasets
 from sklearn.metrics import mean_squared_error, explained_variance_score
-from sklearn import cross_validation
+from sklearn.model_selection import train_test_split
 from sklearn.utils import shuffle
 
 from utilities import visualize_feature_importances
@@ -16,7 +16,7 @@ housing_data = datasets.load_boston()
 X, y = shuffle(housing_data.data, housing_data.target, random_state=7)
 
 # Split data into training and testing datasets 
-X_train, X_test, y_train, y_test = cross_validation.train_test_split(
+X_train, X_test, y_train, y_test = train_test_split.train_test_split(
         X, y, test_size=0.2, random_state=7)
 
 # AdaBoost Regressor model
