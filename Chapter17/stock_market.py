@@ -3,29 +3,23 @@ import warnings
 
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.finance import quotes_historical_yahoo_ochl\
-        as quotes_yahoo
+import yfinance as yf
 from hmmlearn.hmm import GaussianHMM
 
 # Load historical stock quotes from matplotlib package 
-start = datetime.date(1970, 9, 4) 
-end = datetime.date(2016, 5, 17)
-stock_quotes = quotes_yahoo('INTC', start, end) 
+start_date = datetime.date(1970, 9, 4) 
+end_date = datetime.date(2016, 5, 17)
+
+intc = yf.Ticker('INTC').history(start=start_date, end=end_date)
 
 # Extract the closing quotes everyday
 closing_quotes = np.array([quote[2] for quote in stock_quotes])
 
-# Extract the volume of shares traded everyday 
-volumes = np.array([quote[5] for quote in stock_quotes])[1:]
-
 # Take the percentage difference of closing stock prices
-diff_percentages = 100.0 * np.diff(closing_quotes) / closing_quotes[:-1]
-
-# Take the list of dates starting from the second value
-dates = np.array([quote[0] for quote in stock_quotes], dtype=np.int)[1:]
+diff_percentages = 100.0 * np.diff(intc.Close) / intc.Close[:-1]
 
 # Stack the differences and volume values column-wise for training
-training_data = np.column_stack([diff_percentages, volumes])
+training_data = np.column_stack([diff_percentages, intc.Volume[:-1]])
 
 # Create and train Gaussian HMM 
 hmm = GaussianHMM(n_components=7, covariance_type='diag', n_iter=1000)
@@ -49,4 +43,3 @@ plt.plot(np.arange(num_samples), samples[:, 1], c='black')
 plt.ylim(ymin=0)
 
 plt.show()
-
