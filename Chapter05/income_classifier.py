@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from sklearn import preprocessing
 from sklearn.svm import LinearSVC
 from sklearn.multiclass import OneVsOneClassifier
-from sklearn import cross_validation
+from sklearn.model_selection import train_test_split
 
 # Input file containing data
 input_file = 'income_data.txt'
@@ -56,13 +56,13 @@ classifier = OneVsOneClassifier(LinearSVC(random_state=0))
 classifier.fit(X, y)
 
 # Cross validation
-X_train, X_test, y_train, y_test = cross_validation.train_test_split(X, y, test_size=0.2, random_state=5)
+X_train, X_test, y_train, y_test = train_test_split.train_test_split(X, y, test_size=0.2, random_state=5)
 classifier = OneVsOneClassifier(LinearSVC(random_state=0))
 classifier.fit(X_train, y_train)
 y_test_pred = classifier.predict(X_test)
 
 # Compute the F1 score of the SVM classifier
-f1 = cross_validation.cross_val_score(classifier, X, y, scoring='f1_weighted', cv=3)
+f1 = train_test_split.cross_val_score(classifier, X, y, scoring='f1_weighted', cv=3)
 print("F1 score: " + str(round(100*f1.mean(), 2)) + "%")
 
 # Predict output for a test datapoint
