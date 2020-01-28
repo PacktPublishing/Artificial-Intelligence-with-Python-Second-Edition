@@ -3,7 +3,7 @@ import sys
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.ensemble import ExtraTreesClassifier 
-from sklearn import cross_validation
+from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 
 from utilities import visualize_classifier
@@ -26,7 +26,7 @@ plt.scatter(class_1[:, 0], class_1[:, 1], s=75, facecolors='white',
 plt.title('Input data')
 
 # Split data into training and testing datasets 
-X_train, X_test, y_train, y_test = cross_validation.train_test_split(
+X_train, X_test, y_train, y_test = train_test_split.train_test_split(
         X, y, test_size=0.25, random_state=5)
 
 # Extremely Random Forests classifier
