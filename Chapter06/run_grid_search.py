@@ -1,9 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import classification_report
-from sklearn import cross_validation, grid_search
+from sklearn import grid_search
 from sklearn.ensemble import ExtraTreesClassifier
-from sklearn import cross_validation
+from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 
 from utilities import visualize_classifier
@@ -19,7 +19,7 @@ class_1 = np.array(X[y==1])
 class_2 = np.array(X[y==2])
 
 # Split the data into training and testing datasets 
-X_train, X_test, y_train, y_test = cross_validation.train_test_split(
+X_train, X_test, y_train, y_test = train_test_split.train_test_split(
         X, y, test_size=0.25, random_state=5)
 
 # Define the parameter grid 
