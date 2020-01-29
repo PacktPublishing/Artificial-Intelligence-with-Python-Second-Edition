@@ -1,8 +1,5 @@
-import argparse
-
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
-
 
 # Get the MNIST data
 mnist = input_data.read_data_sets("./mnist_data", one_hot=True)
