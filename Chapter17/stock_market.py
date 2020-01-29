@@ -12,9 +12,6 @@ end_date = datetime.date(2016, 5, 17)
 
 intc = yf.Ticker('INTC').history(start=start_date, end=end_date)
 
-# Extract the closing quotes everyday
-closing_quotes = np.array([quote[2] for quote in stock_quotes])
-
 # Take the percentage difference of closing stock prices
 diff_percentages = 100.0 * np.diff(intc.Close) / intc.Close[:-1]
 
