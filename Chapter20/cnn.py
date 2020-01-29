@@ -34,10 +34,10 @@ def max_pooling(x):
             strides=[1, 2, 2, 1], padding='SAME')
 
 if __name__ == '__main__':
-    args = build_arg_parser().parse_args()
+#    args = build_arg_parser().parse_args()
 
     # Get the MNIST data
-    mnist = input_data.read_data_sets(args.input_dir, one_hot=True)
+    mnist = input_data.read_data_sets("mnist_data", one_hot=True)
 
     # The images are 28x28, so create the input layer 
     # with 784 neurons (28x28=784) 
@@ -89,7 +89,7 @@ if __name__ == '__main__':
 
     # Define the entropy loss and the optimizer
     y_loss = tf.placeholder(tf.float32, [None, 10])
-    loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(y_conv, y_loss))
+    loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=y_conv, labels=y_loss))
     optimizer = tf.train.AdamOptimizer(1e-4).minimize(loss)
 
     # Define the accuracy computation
@@ -102,7 +102,7 @@ if __name__ == '__main__':
     sess.run(init)
 
     # Start training
-    num_iterations = 21000
+    num_iterations = 2000
     batch_size = 75
     print('\nTraining the model....')
     for i in range(num_iterations):
@@ -122,4 +122,3 @@ if __name__ == '__main__':
     print('Test accuracy =', accuracy.eval(feed_dict = {
             x: mnist.test.images, y_loss: mnist.test.labels, 
             keep_prob: 1.0}))
-
